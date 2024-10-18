@@ -23,7 +23,7 @@ class SubCategoria(ClaseModelo):
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
     descripcion = models.CharField(
         max_length=100,
-        help_text='Descripcion de la Categoria',
+        help_text='Descripcion de la SubCategoria',
     )
     def __str__(self):
         return '{}:{}'.format(self.categoria.descripcion,self.descripcion)
