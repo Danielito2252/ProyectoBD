@@ -27,7 +27,7 @@ class CategoriaNew(LoginRequiredMixin, generic.CreateView):
         form.instance.uc = self.request.user
         return super().form_valid(form)
     
-
+# Vista para editar una categoría
 class CategoriaEdit(LoginRequiredMixin, generic.UpdateView):
     model = Categoria
     template_name = "inv/categoria_form.html"
@@ -39,4 +39,11 @@ class CategoriaEdit(LoginRequiredMixin, generic.UpdateView):
     def form_valid(self, form):
         form.instance.um = self.request.user.id
         return super().form_valid(form)
-    
+
+# Vista para eliminar una categoría
+class CategoriaDel(LoginRequiredMixin, generic.DeleteView):
+    model = Categoria
+    template_name = 'inv/catalogos_del.html'
+    context_object_name = 'obj'
+    success_url = reverse_lazy("inv:categoria_list")
+    login_url = "bases:login"
