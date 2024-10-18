@@ -1,10 +1,6 @@
 from django.apps import AppConfig
 
 
-class BasesConfig(AppConfig):
+class InvConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'bases'
-
-    from django.apps import AppConfig
-
-
+    name = 'inv'
