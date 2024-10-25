@@ -1,5 +1,5 @@
 from django import forms
-from .models import Categoria, SubCategoria, Marca
+from .models import Categoria, SubCategoria, Marca,  UnidadMedida
 
 class CategoriaForm(forms.ModelForm):
     class Meta:
@@ -60,6 +60,20 @@ class MarcaForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields:
+            self.fields[field].widget.attrs.update({
+                'class': 'form-control'
+            })
+
+class UMForm(forms.ModelForm):
+    class Meta:
+        model=UnidadMedida
+        fields = ['descripcion','estado']
+        labels= {'descripcion': "Descripción de la Marca",
+                "estado":"Estado"}
+        widget={'descripcion': forms.TextInput()}
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in iter(self.fields):
             self.fields[field].widget.attrs.update({
                 'class': 'form-control'
             })
