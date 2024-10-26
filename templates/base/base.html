@@ -383,7 +383,7 @@
         <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
         <div class="modal-footer">
           <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-<!--           <a class="btn btn-primary" href="{% url 'bases:logout' %}">Logout</a> -->
+<!--           <a class="btn btn-primary" href="{% url 'bases:logout' %}">Salir</a> -->
           <form id="logout-form" method="post" action="{% url 'bases:logout' %}">
             {% csrf_token %}
             <button type="submit" class="btn btn-primary">Logout</button>
@@ -393,6 +393,7 @@
       </div>
     </div>
   </div>
+  <div class="modal fade" id="popup"></div>
 
   <!-- Bootstrap core JavaScript-->
   <script src="{% static 'base/vendor/jquery/jquery.min.js' %}"></script>
@@ -410,6 +411,29 @@
   <script src="{% static 'base/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
 
 {% block js_page %}{% endblock %}
+
+{% block control_modal %}
+<script>
+  function abrir_modal (url)
+  {
+
+    $("#popup").load(url, function(){
+      $(this).modal({
+        backdrop:'static',
+        keyboard: false
+      })
+      $(this).modal('show');
+    });
+    return false;
+  }
+
+  function cerrar_modal()
+  {
+    $('#popup'). modal('hide');
+    return false;
+  }
+</script>
+{% endblock %}
 
 </body>
 

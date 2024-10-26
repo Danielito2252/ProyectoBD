@@ -85,6 +85,7 @@ class ProductoForm(forms.ModelForm):
                 'marca','subcategoria','unidad_medida']
         exclude = ['um','fm','uc','fc']
         widget={'descripcion': forms.TextInput()}
+        
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in iter(self.fields):
