@@ -208,7 +208,7 @@ def producto_inactivar(request, id):
     template_name="inv/catalogos_del.html"
     if not prod:
         return redirect("inv:producto_list")
-    
+  
     if request.method=='GET':
         contexto={'obj':prod}
     
@@ -216,3 +216,4 @@ def producto_inactivar(request, id):
         prod.estado=False
         prod.save()
         return redirect("inv:producto_list")
+    return render(request,template_name,contexto)
