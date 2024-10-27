@@ -21,7 +21,7 @@
 
       <!-- Custom styles for this page -->
       <link href="{% static 'base/vendor/datatables/dataTables.bootstrap4.min.css' %}" rel="stylesheet">  
-
+      <link rel="stylesheet" href="{% static 'base/vendor/jquery-confirm/jquery-confirm.min.css' %}">
 </head>
 
 <body id="page-top" class="bg-gradient-primary">
@@ -72,6 +72,8 @@
             <a class="collapse-item" href="{% url 'inv:marca_list' %}">Marca</a>
             <a class="collapse-item" href="{% url 'inv:um_list' %}">Unidad Medida</a>
             <a class="collapse-item" href="{% url 'inv:producto_list' %}">Producto</a>
+            <h6 class="collapse-header">Catálogos de Compras:</h6>
+            <a class="collapse-item" href="{% url 'cmp:proveedor_list' %}">Proveedores</a>
           </div>
         </div>
       </li>
@@ -409,7 +411,7 @@
   <script src="{% static 'base/vendor/datatables/jquery.dataTables.min.js' %}"></script>
 
   <script src="{% static 'base/vendor/datatables/dataTables.bootstrap4.min.js' %}"></script>
-
+  <script src="{% static 'base/vendor/jquery-confirm/jquery-confirm.min.js' %}"></script>
 {% block js_page %}{% endblock %}
 
 {% block control_modal %}
