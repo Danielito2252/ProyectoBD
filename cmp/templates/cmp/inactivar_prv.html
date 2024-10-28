@@ -55,10 +55,13 @@
             success: function(response){
               console.log(response);
               cerrar_modal();
+              var tipo=(response.startsWith('Proveedor no existe') ? 'red':'green' );
+              mensaje(response,tipo);
               alert(response);
             },
             error: function(jqXHR, textStatus, errorThrow){
               console.log(textStatus, errorThrow);
+              mensaje(errorThrow,'red');
               cerrar_modal();
             }
           });
