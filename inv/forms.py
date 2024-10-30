@@ -1,5 +1,6 @@
 from django import forms
-from .models import Categoria, SubCategoria, Marca,  UnidadMedida,  Producto
+from .models import Categoria, SubCategoria, Marca, \
+    UnidadMedida,  Producto
 
 class CategoriaForm(forms.ModelForm):
     class Meta:
@@ -77,6 +78,8 @@ class UMForm(forms.ModelForm):
             self.fields[field].widget.attrs.update({
                 'class': 'form-control'
             })
+
+            
 class ProductoForm(forms.ModelForm):
     class Meta:
         model=Producto

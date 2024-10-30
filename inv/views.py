@@ -2,14 +2,15 @@ from django.shortcuts import render, redirect
 from django.views import generic
 from django.urls import reverse_lazy
 from django.contrib import messages
-
+from django.contrib.auth.mixins import LoginRequiredMixin, \
+    PermissionRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth.decorators import login_required, permission_required
 
 from .models import Categoria,SubCategoria, Marca, UnidadMedida, \
     Producto
 from .forms import CategoriaForm, SubCategoriaForm, MarcaForm, \
-     UMForm, ProductoForm
+    UMForm, ProductoForm
 
 from bases.views import SinPrivilegios
 # Vista para listar las categorías
@@ -19,7 +20,6 @@ class CategoriaView(SinPrivilegios, \
     model = Categoria
     template_name = "inv/categoria_list.html"
     context_object_name = "obj"
-    login_url = 'bases:login'
 
 # Vista para crear una nueva categoría
 class CategoriaNew(SuccessMessageMixin,SinPrivilegios,\
@@ -60,6 +60,8 @@ class CategoriaDel(SuccessMessageMixin,SinPrivilegios, generic.DeleteView):
     context_object_name = 'obj'
     success_url = reverse_lazy("inv:categoria_list")
     success_message="Categoría Eliminada Satisfactoriamente"
+
+
 
 class SubCategoriaView(SinPrivilegios, \
     generic.ListView):
@@ -150,6 +152,7 @@ def marca_inactivar(request, id):
     if request.method=='POST':
         marca.estado=False
         marca.save()
+        messages.success(request,'Marca Inactivada')
         return redirect("inv:marca_list")       
     return render(request,template_name,contexto)
     
@@ -206,6 +209,7 @@ def um_inactivar(request, id):
         return redirect("inv:um_list")
     return render(request,template_name,contexto)
   
+
 class ProductoView(SinPrivilegios, generic.ListView):
     model = Producto
     template_name = "inv/prducto_list.html"
@@ -213,7 +217,7 @@ class ProductoView(SinPrivilegios, generic.ListView):
     permission_required="inv.view_producto"
 
 class ProductoNew(SuccessMessageMixin,SinPrivilegios,
-                   generic.CreateView):
+    generic.CreateView):
     model=Producto
     template_name="inv/producto_form.html"
     context_object_name = 'obj'

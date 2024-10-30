@@ -53,6 +53,7 @@ class ComprasEnc(ClaseModelo):
     class Meta:
         verbose_name_plural = "Encabezado Compras"
         verbose_name="Encabezado Compra"
+        
 class ComprasDet(ClaseModelo):
     compra=models.ForeignKey(ComprasEnc,on_delete=models.CASCADE)
     producto=models.ForeignKey(Producto,on_delete=models.CASCADE)

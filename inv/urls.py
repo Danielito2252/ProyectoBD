@@ -3,7 +3,7 @@ from django.urls import path
 from .views import CategoriaView, CategoriaNew, CategoriaEdit, CategoriaDel, \
     SubCategoriaView, SubCategoriaNew, SubCategoriaEdit, SubCategoriaDel, \
     MarcaView, MarcaNew, MarcaEdit, marca_inactivar, \
-     UMView, UMNew, UMEdit, um_inactivar,\
+    UMView, UMNew, UMEdit, um_inactivar,\
     ProductoView, ProductoEdit, ProductoNew, producto_inactivar
 
 urlpatterns = [
