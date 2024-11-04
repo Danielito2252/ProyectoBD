@@ -212,21 +212,35 @@ def um_inactivar(request, id):
 
 class ProductoView(SinPrivilegios, generic.ListView):
     model = Producto
-    template_name = "inv/prducto_list.html"
+    template_name = "inv/producto_list.html"
     context_object_name = "obj"
     permission_required="inv.view_producto"
 
-class ProductoNew(SuccessMessageMixin,SinPrivilegios,
-    generic.CreateView):
-    model=Producto
-    template_name="inv/producto_form.html"
+class ProductoView(SinPrivilegios, generic.ListView):
+    model = Producto
+    template_name = "inv/producto_list.html"  # Corrige el nombre de la plantilla aquí
+    context_object_name = "obj"
+    permission_required = "inv.view_producto"  # Asegúrate de que este permiso existe
+
+
+class ProductoNew(SuccessMessageMixin, SinPrivilegios, generic.CreateView):
+    model = Producto
+    template_name = "inv/producto_form.html"
     context_object_name = 'obj'
-    form_class=ProductoForm
-    success_url= reverse_lazy("inv:producto_list")
-    login_url = 'bases:login'
+    form_class = ProductoForm
+    success_url = reverse_lazy("inv:producto_list")
+    success_message = "Producto Creado"
+    permission_required = "inv.add_producto"  # Añade el permiso requerido
+
     def form_valid(self, form):
         form.instance.uc = self.request.user
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["categorias"] = Categoria.objects.all()
+        context["subcategorias"] = SubCategoria.objects.all()
+        return context
 
 class ProductoEdit(SuccessMessageMixin,SinPrivilegios, generic.UpdateView):
     model=Producto
