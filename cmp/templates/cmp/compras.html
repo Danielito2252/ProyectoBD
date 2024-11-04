@@ -90,7 +90,8 @@
                                                         <td>{{ item.id }}</td>
                                                         <td>{{ item.descripcion }}</td>
                                                         <td>
-                                                            <button type="button" class="btn btn-warning btn-circle" onclick="selectProducto({{item.id}},'{{item.descripcion}}')" ><i class="far fa-hand-pointer"></i></button>
+                                                            <button type="button" class="btn btn-warning btn-circle"
+                                                            onclick="selectProducto({{item.id}},'{{item.descripcion}}')" ><i class="far fa-hand-pointer"></i></button>
                                                         </td>
                                                         </tr>
                                                         {% endfor %}
@@ -187,11 +188,14 @@
 {% block js_page %}
 <script>
     $(function () {
+
         $("#id_fecha_compra, #id_fecha_factura").datetimepicker({
             format: 'Y-m-d',
             timepicker:false
         });
+
         $("#sidebarToggle").click();
+
         $('.table').DataTable({
             "pageLength": 2,
             "language": {
@@ -217,23 +221,46 @@
                 "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
                 "sSortDescending": ": Activar para ordenar la columna de manera descendente"
             }
-        }
-    });
-    $('#id_cantidad_detalle,#id_precio_detalle,#id_descuento_detalle').change(function(){
-        calcular_detalle();
-    });
+            }
+        });
+        $('#id_cantidad_detalle,#id_precio_detalle,#id_descuento_detalle').change(function(){
+            calcular_detalle();
+        });
 
         /*Validar Envío de Detalle */
-    $("#frmCompras").submit(function(e){
-        if($('#id_total_detalle').val()==0 || $('#id_id_producto').val()==0 ){
-            e.preventDefault();
-            //alert("No ha agregado producto o está sin cantidades");
-            $.alert({
-                    type:'red',
-                    title:'',
-                    content:'No ha agregado producto o está sin cantidades'
-                    })
-        }
+        $("#frmCompras").submit(function(e){
+            var  no_fact = $("#id_no_factura").val();
+            console.log(no_fact);
+            
+            if(no_fact.trim()==""){
+                e.preventDefault()
+                $.alert({
+                        type:'red',
+                        title:'',
+                        content:'Debe Especificar No. de Factura'
+                        });
+                return false;
+            }
+            if($("#id_fecha_compra").val()=="" || $("#id_fecha_factura").val()==""){
+                e.preventDefault()
+                $.alert({
+                        type:'red',
+                        title:'',
+                        content:'Debe Especificar Fecha'
+                        });
+                return false;
+            }
+            if($('#id_total_detalle').val()==0 || $('#id_id_producto').val()==0 ){
+                e.preventDefault();
+                //alert("No ha agregado producto o está sin cantidades");
+                $.alert({
+                        type:'red',
+                        title:'',
+                        content:'No ha agregado producto o está sin cantidades'
+                        })
+            }
+        });
+        /*Fin Validar Envío de Detalle */
     });
     function selectProducto(id,descripcion)
     {
@@ -281,8 +308,5 @@
         $("#id_proveedor").focus();
     }
     $("#id_proveedor").focus();
-   /*Fin Validar Envío de Detalle */
-});
-    
 </script>
 {% endblock %}
