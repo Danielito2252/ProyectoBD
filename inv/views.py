@@ -40,6 +40,7 @@ class CategoriaNew(SuccessMessageMixin,SinPrivilegios,\
 # Vista para editar una categoría
 class CategoriaEdit(SuccessMessageMixin,SinPrivilegios, \
     generic.UpdateView):
+    permission_required="inv.change_categoria"
     model = Categoria
     template_name = "inv/categoria_form.html"
     context_object_name = "obj"
